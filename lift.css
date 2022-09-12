@@ -1,0 +1,189 @@
+* {
+  box-sizing: border-box;
+}
+.bg-container {
+  background-color: azure;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.lift-container {
+  height: 560px;
+  width: 100px;
+  border: solid 3px grey;
+}
+.lift-room {
+  height: 76px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #cad2e3;
+  border: solid 3px #cad2e3;
+  border-left: none;
+  border-right: none;
+  margin-top: 480px;
+
+}
+
+.lift-room-movement{
+    animation-duration: 5s;
+    animation-delay: 2s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes lift-up-1-2{
+    from {
+        margin-top: 480px;
+    }
+    to {
+        margin-top: 320px;
+    }
+}
+
+@keyframes lift-up-2-3{
+    from {
+        margin-top: 320px;
+    }
+    to {
+        margin-top: 160px;
+    }
+}
+@keyframes lift-up-3-4{
+    from {
+        margin-top: 160px;
+    }
+    to {
+        margin-top: 0px;
+    }
+}
+@keyframes lift-up-4-3{
+    from {
+        margin-top: 0px;
+    }
+    to {
+        margin-top: 160px;
+    }
+}
+@keyframes lift-up-3-2{
+    from {
+        margin-top: 160px;
+    }
+    to {
+        margin-top: 320px;
+    }
+}
+@keyframes lift-up-2-1{
+    from {
+        margin-top: 320px;
+    }
+    to {
+        margin-top: 480px;
+    }
+}
+
+
+
+.lift-left-door-at-rest {
+  height: 80px;
+  width: 10px;
+  background-color: #3f4c69;
+  border: white solid;
+  border-left: none;
+  padding-left: 45px;
+}
+.lift-right-door-at-rest {
+  height: 80px;
+  width: 10px;
+  background-color: #3f4c69;
+  border: white solid;
+  border-right: none;
+  padding-right: 45px;
+}
+.left-lift-open-animation {
+  animation-name: left-door-open;
+  animation-duration: 3s;
+  animation-fill-mode: forwards;
+}
+.left-lift-close-animation {
+  animation-name: left-door-close;
+  animation-duration: 3s;
+  animation-fill-mode: forwards;
+}
+.right-lift-open-animation {
+  animation-name: right-door-open;
+  animation-duration: 3s;
+  animation-fill-mode: forwards;
+}
+.right-lift-close-animation {
+  animation-name: right-door-close;
+  animation-duration: 3s;
+  animation-fill-mode: forwards;
+}
+@keyframes left-door-close {
+  from {
+    padding-left: 0px;
+  }
+  to {
+    padding-left: 45px;
+  }
+}
+@keyframes right-door-close {
+  from {
+    padding-right: 0px;
+  }
+  to {
+    padding-right: 45px;
+  }
+}
+
+@keyframes left-door-open {
+  from {
+    padding-left: 45px;
+  }
+  to {
+    padding-left: 0px;
+  }
+}
+@keyframes right-door-open {
+  from {
+    padding-right: 45px;
+  }
+  to {
+    padding-right: 0px;
+  }
+}
+
+.floors-container {
+  padding-top: 10px;
+  height: 560px;
+  width: 100px;
+  border: 1px black solid;
+  margin-left: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+.input-button-container {
+  height: 65px;
+  width: 60px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  border: 1px solid transparent;
+}
+.input-btn-style {
+  height: 20px;
+  width: 20px;
+  background-color: #3f4c69;
+  color: white;
+  font-weight: 700;
+  font-size: 15px;
+  border-radius: 2px;
+  border: none;
+}

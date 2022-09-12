@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>LIFT ASSIGNMENT</title>
+        <link rel="stylesheet" href="lift.css" />
+    </head>
+    <body>
+        <div class="bg-container">
+             <div class="lift-container">
+                <div class="lift-room" id="lift">
+                    <div class="lift-left-door-at-rest" id="left-door">
+
+                    </div>
+                    <div class="lift-right-door-at-rest" id="right-door">
+
+                    </div>
+                </div>
+             </div>
+             <div class="floors-container">
+                <div class="floor-4 input-button-container">
+                    <input type="button" class="input-btn-style" value="1" onclick="findingFloor(4,1)"/>
+                    <input type="button" class="input-btn-style" value="2" onclick="findingFloor(4,2)"/>
+                    <input type="button" class="input-btn-style" value="3" onclick="findingFloor(4,1)"/>
+                </div>
+                <div class="floor-3 input-button-container">
+                    <input type="button" class="input-btn-style" value="1" onclick="findingFloor(3,1)"/>
+                    <input type="button" class="input-btn-style" value="2" onclick="findingFloor(3,2)"/>
+                    <input type="button" class="input-btn-style" value="4" onclick="findingFloor(3,4)"/>
+                </div>
+                <div class="floor-2 input-button-container">
+                    <input type="button" class="input-btn-style" value="1" onclick="findingFloor(2,1)"/>
+                    <input type="button" class="input-btn-style" value="3" onclick="findingFloor(2,3)"/>
+                    <input type="button" class="input-btn-style" value="4" onclick="findingFloor(2,4)"/>
+                </div>
+                <div class="floor-1 input-button-container">
+                    <input type="button" class="input-btn-style" value="2" onclick="findingFloor(1,2)"/>
+                    <input type="button" class="input-btn-style" value="3" onclick="findingFloor(1,3)"/>
+                    <input type="button" class="input-btn-style" value="4" onclick="findingFloor(1,4)"/>
+                </div>
+             </div>
+        </div>
+        <script src="lift.js"></script>
+    </body>
+</html>
