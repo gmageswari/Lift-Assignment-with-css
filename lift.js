@@ -17,6 +17,7 @@ let rightDoorElement = document.getElementById("right-door");
 let liftElement = document.getElementById("lift");
 
 function liftOpenClose(){
+    console.log(`Lift opened at ${liftIsAt}`);
     leftDoorElement.classList.add("left-lift-open-animation");
         rightDoorElement.classList.add("right-lift-open-animation");
         setTimeout(function(){
@@ -36,6 +37,7 @@ function goUp(floorX,floorY){
     
     liftIsAt = liftIsAt + 1;
     
+    
     console.log(`Lift is at ${liftIsAt}`);
     
     liftElement.style.animation = `lift-up-${liftIsAt-1}-${liftIsAt}`;
@@ -46,38 +48,41 @@ function goUp(floorX,floorY){
     liftElement.classList.add("lift-room-movement");
     setTimeout(function(){
         if(waitingNavigations.length !== 0){
-            console.log("checking for on the way");
-            waitingOnTheWay = waitingNavigations.filter((eachFromTo)=>(eachFromTo.from === liftIsAt && eachFromTo.to > liftIsAt)||(eachFromTo.from === 4 && eachFromTo.to < 4));
-            console.table(waitingOnTheWay);
+            //console.log("checking for on the way");
+            waitingOnTheWay = waitingNavigations.filter((eachFromTo)=>(eachFromTo.from === liftIsAt && eachFromTo.to > liftIsAt && eachFromTo.to <= floorY)||(eachFromTo.from === 4 && eachFromTo.to < 4 && liftIsAt===4));
+            //console.table(waitingOnTheWay);
         }
         if(waitingOnTheWay.length !== 0){
-            console.log("Deleting on the way from waiting and updating current");
+            console.log("Picking people");
             openClose = true;
             waitingNavigations = waitingNavigations.filter((eachFromTo)=>!waitingOnTheWay.includes(eachFromTo));
             currentNavigationList = [...currentNavigationList,...waitingOnTheWay];
             waitingOnTheWay = [];
-            console.table(currentNavigationList);
-            console.table(waitingNavigations);
-            console.table(waitingOnTheWay);
+            //console.table(currentNavigationList);
+            //console.table(waitingNavigations);
+            //console.table(waitingOnTheWay);
         }
         
         updatedCurrentNavigationList = currentNavigationList.filter((eachFromTo)=>eachFromTo.to === liftIsAt && eachFromTo.from < liftIsAt);
         if(updatedCurrentNavigationList.length !== 0){
-            console.table("People who got down");
-            console.table(updatedCurrentNavigationList);
+            updatedCurrentNavigationList.map((eachFromTo)=>eachFromTo.event.target.classList.remove("input-button-clicked-style"));
+            console.table("Dropping people");
+            //console.table(updatedCurrentNavigationList);
            openClose = true;
             stillInLift = currentNavigationList.filter((eachFromTo)=>!updatedCurrentNavigationList.includes(eachFromTo));
             currentNavigationList = [...stillInLift];
             updatedCurrentNavigationList=[];
             
         }
-        console.log("After all opertaions all three array");
+        console.log("From and To requests inside the lift");
         console.table(currentNavigationList);
-        console.table(waitingNavigations);
-        console.table(waitingOnTheWay);
+        //console.log("After all opertaions all three array");
+        //console.table(currentNavigationList);
+        //console.table(waitingNavigations);
+        //console.table(waitingOnTheWay);
         
         if(currentNavigationList.length === 0){
-            console.log("Current is empty");
+            console.log("Lift is empty");
             if(openClose === true){
                 setTimeout(liftOpenClose,8000);
             }
@@ -89,25 +94,30 @@ function goUp(floorX,floorY){
         }
         
         if(liftIsAt === floorY){
-                console.log("lift is at the floorY")
+                //console.log("lift is at the floorY")
                 clearInterval(moveToTimerId);
                 openClose = true;
                 
                 
                 if(liftIsAt === currentNavigationList[0].to){
-                    console.log("Lift reached destination");
+                    console.table("Dropping people");
                     currentNavigationList.shift();
                     openClose = true;
                     newCurrentNavigationList = currentNavigationList.filter((eachFromTo)=>eachFromTo.to !== liftIsAt);
+                    currentNavigationList.map((eachFromTo)=>{
+                        if(eachFromTo.to === liftIsAt){
+                            eachFromTo.event.target.classList.remove("input-button-clicked-style");
+                        }
+                    })
                     
                     currentNavigationList = [...newCurrentNavigationList];
                     if(openClose === true){
                         setTimeout(liftOpenClose,8000);
                     }
                     //liftElement.style.marginTop = `${toMarginValue}px`;
-                    console.table(currentNavigationList);
-                    console.table(waitingNavigations);
-                    console.table(waitingOnTheWay);
+                    //console.table(currentNavigationList);
+                    //console.table(waitingNavigations);
+                    //console.table(waitingOnTheWay);
                     timerId = setInterval(startNavigating,5000);
                     
                     return;
@@ -116,9 +126,9 @@ function goUp(floorX,floorY){
                     setTimeout(liftOpenClose,8000);
                 }
                 //liftElement.style.marginTop = `${toMarginValue}px`;
-                console.table(currentNavigationList);
-                    console.table(waitingNavigations);
-                    console.table(waitingOnTheWay);
+                //console.table(currentNavigationList);
+                    //console.table(waitingNavigations);
+                    //console.table(waitingOnTheWay);
                 timerId = setInterval(startNavigating,5000);
                 
                 return;
@@ -149,21 +159,21 @@ function goDown(floorX,floorY){
     console.log(`Lift is at ${liftIsAt}`);
     setTimeout(function(){
         if(waitingNavigations.length !== 0){
-            console.log("checking for on the way");
-            waitingOnTheWay = waitingNavigations.filter((eachFromTo)=>(eachFromTo.from === liftIsAt && eachFromTo.to < liftIsAt));
-            console.table(waitingOnTheWay);
+            //console.log("checking for on the way");
+            waitingOnTheWay = waitingNavigations.filter((eachFromTo)=>(eachFromTo.from === liftIsAt && eachFromTo.to < liftIsAt && eachFromTo.to >= floorY)||(eachFromTo.from === 1 && eachFromTo.to > 1 && liftIsAt===1));
+            //console.table(waitingOnTheWay);
         }
         
         
         if(waitingOnTheWay.length !== 0){
-            console.log("Deleting on the way from waiting and updating current");
+            console.log("Picking people");
             openCloseDown = true;
             waitingNavigations = waitingNavigations.filter((eachFromTo)=>!waitingOnTheWay.includes(eachFromTo));
             currentNavigationList = [...currentNavigationList,...waitingOnTheWay];
             waitingOnTheWay = [];
-            console.table(currentNavigationList);
-            console.table(waitingNavigations);
-            console.table(waitingOnTheWay);
+            //console.table(currentNavigationList);
+            //console.table(waitingNavigations);
+            //console.table(waitingOnTheWay);
         }
         
       
@@ -171,8 +181,9 @@ function goDown(floorX,floorY){
         updatedCurrentNavigationList = currentNavigationList.filter((eachFromTo)=>(eachFromTo.to === liftIsAt && eachFromTo.from >= liftIsAt)||(eachFromTo.from === 1 && eachFromTo.to > 1));
         if(updatedCurrentNavigationList.length !== 0){
             openCloseDown = true;
-            console.table("People who got down");
-            console.table(updatedCurrentNavigationList);
+            updatedCurrentNavigationList.map((eachFromTo)=>eachFromTo.event.target.classList.remove("input-button-clicked-style"));
+            console.table("Dropping people");
+            //console.table(updatedCurrentNavigationList);
            
             stillInLift = currentNavigationList.filter((eachFromTo)=>!updatedCurrentNavigationList.includes(eachFromTo));
             currentNavigationList = [...stillInLift];
@@ -180,12 +191,14 @@ function goDown(floorX,floorY){
             
         }
         //liftElement.style.marginTop = `${liftIsAt * 160}px`;
+        console.log("From and To requests inside the lift");
         console.table(currentNavigationList);
-        console.table(waitingNavigations);
-        console.table(waitingOnTheWay);
+        //console.table(currentNavigationList);
+        //console.table(waitingNavigations);
+        //console.table(waitingOnTheWay);
        
         if(currentNavigationList.length === 0){
-            console.log("Current is empty");
+            //console.log("Lift is empty");
             if(openCloseDown === true){
                 setTimeout(liftOpenClose,3000);
             }
@@ -197,39 +210,40 @@ function goDown(floorX,floorY){
         }
         
          if(liftIsAt === floorY){
-            console.log("lift is at the floorY")
+            //console.log("lift is at the floorY")
                 clearInterval(moveToTimerId);
                 openCloseDown= true;
                 
                 if(liftIsAt === currentNavigationList[0].to){
-                    console.log("Lift reached destination");
+                    console.table("Dropping people");
                     currentNavigationList.shift();
-                    console.log(`Reached at destination`);
+                    
                     openCloseDown= true;
                     newCurrentNavigationList = currentNavigationList.filter((eachFromTo)=>eachFromTo.to !== liftIsAt);
                     currentNavigationList.map((eachFromTo)=>{
-                       
-                        
-                    });
+                        if(eachFromTo.to === liftIsAt){
+                            eachFromTo.event.target.classList.remove("input-button-clicked-style");
+                        }
+                    })
                     currentNavigationList = [...newCurrentNavigationList];
                     if(openCloseDown === true){
                         setTimeout(liftOpenClose,3000);
                     }
-                    console.table(currentNavigationList);
-                    console.table(waitingNavigations);
-                    console.table(waitingOnTheWay);
+                    //console.table(currentNavigationList);
+                    //console.table(waitingNavigations);
+                    //console.table(waitingOnTheWay);
                     timerId = setInterval(startNavigating,5000);
                     
-                    inputElement.value = "";
+                   
                     
                     return;
                 }
                 if(openCloseDown === true){
                     setTimeout(liftOpenClose,3000);
                 }
-                console.table(currentNavigationList);
-                    console.table(waitingNavigations);
-                    console.table(waitingOnTheWay);
+                //console.table(currentNavigationList);
+                  //  console.table(waitingNavigations);
+                    //console.table(waitingOnTheWay);
                 timerId = setInterval(startNavigating,5000);
                 
                 return;
@@ -279,9 +293,9 @@ function moveTo(floorX,floorY){
 function startNavigating(){
     openClose = false;
     openCloseDown = false;
-    console.table(currentNavigationList);
-    console.table(waitingNavigations);
-    console.table(waitingOnTheWay);
+    //console.table(currentNavigationList);
+    //console.table(waitingNavigations);
+    //console.table(waitingOnTheWay);
    
     if(currentNavigationList.length === 0 && waitingNavigations.length === 0){
         liftStatus = 0;
@@ -290,7 +304,8 @@ function startNavigating(){
         return;
     }
     if(currentNavigationList.length === 0 && waitingNavigations.length !== 0){
-        currentNavigationList = [...waitingNavigations.splice(0,1)];
+        currentNavigationList = [...waitingNavigations];
+        waitingNavigations = [];
         clearInterval(timerId);
     }
     if(currentNavigationList.length !== 0 && waitingNavigations.length > 0 && (liftIsAt === 1)){
@@ -309,10 +324,11 @@ function startNavigating(){
            
         }
     }
-    console.log("Starting Navigation");
+    
+    console.log("From and To requests inside the lift");
     console.table(currentNavigationList);
-    console.table(waitingNavigations);
-    console.table(waitingOnTheWay);
+    //console.table(waitingNavigations);
+    //console.table(waitingOnTheWay);
 
     let currentFrom = currentNavigationList[0].from;
     let currentTo = currentNavigationList[0].to;
@@ -327,19 +343,23 @@ function startNavigating(){
 }
 
 
-function findingFloor(from,to){ //gets the input and finds the from floor and to floor and pushes into the array
+function findingFloor(from,to,event){ //gets the input and finds the from floor and to floor and pushes into the array
+    event.target.classList.add("input-button-clicked-style");
     if(liftStatus === 0){
         currentNavigationList = [{
             from,
-            to
+            to,
+            event
         }];
         liftStatus = 1;
+        console.log("Starting Navigation");
         startNavigating();
     }
     else{
         waitingNavigations = [...waitingNavigations,{
             from,
-            to
+            to,
+            event
         }];
     }
 }
