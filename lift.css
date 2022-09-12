@@ -195,3 +195,10 @@ h1{
     color : #3f4c69;
     font-weight: 600;
 }
+
+.note{
+    max-width: 200px;
+}
+p{
+    font-weight : 700;
+}
